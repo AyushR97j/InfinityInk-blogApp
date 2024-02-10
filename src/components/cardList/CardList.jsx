@@ -11,8 +11,9 @@ const getData = async (page, cat) => {
   //     cache: "no-store",
   //   }
   // );
+  // console.log("dtat",page, cat)
   const res = await fetch(
-    `http://localhost:3000/api/posts?page=${page}&cat=${cat}`,
+    `http://localhost:3000/api/posts?page=${page}&cat=${cat ? cat  : ""}`,
     {
       cache: "no-store",
     }
@@ -27,6 +28,8 @@ const getData = async (page, cat) => {
 
 const CardList = async ({ page, cat }) => {
   const { posts, count } = await getData(page, cat);
+
+  console.log("posts", posts)
 
   const POST_PER_PAGE = 2;
 

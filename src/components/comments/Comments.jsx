@@ -12,6 +12,7 @@ const fetcher = async (url) => {
 
   const data = await res.json();
 
+  
   if (!res.ok) {
     const error = new Error(data.message);
     throw error;
@@ -24,7 +25,7 @@ const Comments = ({ postSlug }) => {
   const { status } = useSession();
 
   const { data, mutate, isLoading } = useSWR(
-    process.env.NEXTAUTH_URL + `/api/comments?postSlug=${postSlug}`,
+    `http://localhost:3000/api/comments?postSlug=${postSlug}`,
     fetcher
   );
 
@@ -59,7 +60,7 @@ const Comments = ({ postSlug }) => {
         {isLoading
           ? "loading"
           : data?.map((item) => (
-              <div className={styles.comment} key={item._id}>
+              <div className={styles.comment} key={item.id}>
                 <div className={styles.user}>
                   {item?.user?.image && (
                     <Image
